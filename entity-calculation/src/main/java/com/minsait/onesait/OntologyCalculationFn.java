@@ -31,7 +31,8 @@ public class OntologyCalculationFn {
 		final APIService service = new APIService(apiKey, backend);
 		final Double result = CalculationService.calculateOutput(input.getValue());
 		final TimeZone tz = TimeZone.getTimeZone("UTC");
-		final DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone
+		final DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'"); // Quoted "Z" to indicate UTC, no
+																				// timezone
 																				// offset
 		df.setTimeZone(tz);
 		final String nowAsISO = df.format(new Date());
