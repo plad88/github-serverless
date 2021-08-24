@@ -29,7 +29,8 @@ public class APIService {
 		try {
 			final RequestBody body = RequestBody.create(JSON, mapper.writeValueAsString(output));
 			final Request request = new Request.Builder().addHeader("Content-Type", "application/json")
-					.addHeader("X-OP-APIKey", apiKey).url(backend + API_PATH).post(body).build();
+					.addHeader("Accept", "application/json").addHeader("X-OP-APIKey", apiKey).url(backend + API_PATH)
+					.post(body).build();
 			final Call call = client.newCall(request);
 			final Response response = call.execute();
 		} catch (final Exception e) {
