@@ -8,6 +8,7 @@ import java.util.TimeZone;
 import com.fnproject.fn.api.FnConfiguration;
 import com.fnproject.fn.api.RuntimeContext;
 import com.minsait.onesait.pojo.FnEntityOutput;
+import com.minsait.onesait.pojo.FnEntityOutputWrapper;
 import com.minsait.onesait.pojo.InputData;
 import com.minsait.onesait.service.APIService;
 import com.minsait.onesait.service.CalculationService;
@@ -35,6 +36,7 @@ public class OntologyCalculationFn {
 		df.setTimeZone(tz);
 		final String nowAsISO = df.format(new Date());
 		final FnEntityOutput output = new FnEntityOutput(nowAsISO, result, input.getZoneId());
+		service.createEntry(new FnEntityOutputWrapper(output));
 
 		return input;
 
