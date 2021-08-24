@@ -1,0 +1,20 @@
+schema_version: 20180708
+name: myfunc
+version: 0.0.21
+runtime: java11
+build_image: fnproject/fn-java-fdk-build:jdk11-1.0.124
+run_image: fnproject/fn-java-fdk:jre11-1.0.124
+cmd: com.example.fn.HelloFunction::handleRequest
+config:
+  funcKey1: funcValue1
+  funcKey2: funcValue2
+triggers:
+- name: endpoint
+  type: http
+  source: /mount
+- name: endpointv2
+  type: http
+  source: /v2/mount
+- name: trigger3
+  type: http
+  source: /v3/mount

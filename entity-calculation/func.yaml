@@ -1,0 +1,14 @@
+schema_version: 20180708
+name: ontology
+version: 0.0.1
+runtime: java11
+build_image: fnproject/fn-java-fdk-build:jdk11-1.0.124
+run_image: fnproject/fn-java-fdk:jre11-1.0.124
+cmd: com.minsait.onesait.OntologyCalculationFn::handleRequest
+config:
+  API_KEY: 26104876616f40908e3643ed1f6357d1
+triggers:
+- name: endpoint
+  type: http
+  source: /calculate
+
