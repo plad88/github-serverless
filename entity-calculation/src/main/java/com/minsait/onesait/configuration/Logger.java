@@ -50,7 +50,8 @@ public class Logger {
 	}
 
 	private void sendLogMessage(String msg, GelfMessageLevel level) {
-		final GelfMessageBuilder builder = new GelfMessageBuilder("").level(level).additionalField("_foo", "bar");
+		final GelfMessageBuilder builder = new GelfMessageBuilder("").level(level).additionalField("app_name",
+				"entityCalculationFn");
 		final GelfMessage message = builder.message(msg).build();
 		try {
 			TRANSPORT.send(message);
