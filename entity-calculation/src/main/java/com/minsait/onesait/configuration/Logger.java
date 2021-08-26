@@ -25,7 +25,7 @@ public class Logger {
 		final String grayLogPort = ctx.getConfigurationByKey("GRAYLOG_PORT").orElse(null);
 		if (grayLogHost != null && grayLogPort != null) {
 			final GelfConfiguration config = new GelfConfiguration(
-					new InetSocketAddress(grayLogHost, Integer.valueOf(grayLogPort))).transport(GelfTransports.UDP)
+					new InetSocketAddress(grayLogHost, Integer.valueOf(grayLogPort))).transport(GelfTransports.TCP)
 							.queueSize(512).connectTimeout(5000).reconnectDelay(1000).tcpNoDelay(true)
 							.sendBufferSize(32768);
 			System.out.print("Initializing logger");
@@ -59,6 +59,7 @@ public class Logger {
 		try {
 			TRANSPORT.send(message);
 			System.out.print("Message sent");
+			Thread.sleep(10000);
 		} catch (final InterruptedException e) {
 			e.printStackTrace();
 		}
