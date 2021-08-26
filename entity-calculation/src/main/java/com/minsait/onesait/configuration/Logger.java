@@ -28,6 +28,7 @@ public class Logger {
 					new InetSocketAddress(grayLogHost, Integer.valueOf(grayLogPort))).transport(GelfTransports.UDP)
 							.queueSize(512).connectTimeout(5000).reconnectDelay(1000).tcpNoDelay(true)
 							.sendBufferSize(32768);
+			System.out.print("Initializing logger");
 			TRANSPORT = GelfTransports.create(config);
 		}
 	}
@@ -57,6 +58,7 @@ public class Logger {
 		final GelfMessage message = builder.message(msg).build();
 		try {
 			TRANSPORT.send(message);
+			System.out.print("Message sent");
 		} catch (final InterruptedException e) {
 			e.printStackTrace();
 		}
