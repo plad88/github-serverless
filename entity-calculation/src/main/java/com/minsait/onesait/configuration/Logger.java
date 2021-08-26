@@ -15,14 +15,16 @@ public class Logger {
 
 	private static Logger LOGGER;
 	private static GelfTransport TRANSPORT;
+	private static String grayLogHost;
+	private static String grayLogPort;
 
 	public static void initialize(RuntimeContext ctx) {
 		setUpLogger(ctx);
 	}
 
 	private static void setUpLogger(RuntimeContext ctx) {
-		final String grayLogHost = ctx.getConfigurationByKey("GRAYLOG_HOST").orElse(null);
-		final String grayLogPort = ctx.getConfigurationByKey("GRAYLOG_PORT").orElse(null);
+		grayLogHost = ctx.getConfigurationByKey("GRAYLOG_HOST").orElse(null);
+		grayLogPort = ctx.getConfigurationByKey("GRAYLOG_PORT").orElse(null);
 		if (grayLogHost != null && grayLogPort != null) {
 			final GelfConfiguration config = new GelfConfiguration(
 					new InetSocketAddress(grayLogHost, Integer.valueOf(grayLogPort))).transport(GelfTransports.TCP)
@@ -53,15 +55,14 @@ public class Logger {
 	}
 
 	private void sendLogMessage(String msg, GelfMessageLevel level) {
-		final GelfMessageBuilder builder = new GelfMessageBuilder(msg).level(level).additionalField("app_name",
-				"entityCalculationFn");
+		final GelfMessageBuilder builder = new GelfMessageBuilder(msg, grayLogHost).level(level)
+				.additionalField("app_name", "entityCalculationFn");
 		final GelfMessage message = builder.message(msg).build();
 		try {
 			TRANSPORT.send(message);
-			System.out.print("Message sent");
-			Thread.sleep(10000);
+
 		} catch (final InterruptedException e) {
-			e.printStackTrace();
+			System.out.print("ERROR");
 		}
 	}
 
