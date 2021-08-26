@@ -9,7 +9,6 @@ import org.graylog2.gelfclient.GelfMessageLevel;
 import org.graylog2.gelfclient.GelfTransports;
 import org.graylog2.gelfclient.transport.GelfTransport;
 
-import com.fnproject.fn.api.FnConfiguration;
 import com.fnproject.fn.api.RuntimeContext;
 
 public class Logger {
@@ -17,8 +16,11 @@ public class Logger {
 	private static Logger LOGGER;
 	private static GelfTransport TRANSPORT;
 
-	@FnConfiguration
-	public void setUpLogger(RuntimeContext ctx) {
+	public static void initialize(RuntimeContext ctx) {
+		setUpLogger(ctx);
+	}
+
+	private static void setUpLogger(RuntimeContext ctx) {
 		final String grayLogHost = ctx.getConfigurationByKey("GRAYLOG_HOST").orElse(null);
 		final String grayLogPort = ctx.getConfigurationByKey("GRAYLOG_PORT").orElse(null);
 		if (grayLogHost != null && grayLogPort != null) {
@@ -50,7 +52,7 @@ public class Logger {
 	}
 
 	private void sendLogMessage(String msg, GelfMessageLevel level) {
-		final GelfMessageBuilder builder = new GelfMessageBuilder("").level(level).additionalField("app_name",
+		final GelfMessageBuilder builder = new GelfMessageBuilder(msg).level(level).additionalField("app_name",
 				"entityCalculationFn");
 		final GelfMessage message = builder.message(msg).build();
 		try {

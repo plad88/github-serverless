@@ -16,7 +16,7 @@ import com.minsait.onesait.service.CalculationService;
 
 public class OntologyCalculationFn {
 
-	private static final Logger LOGGER = Logger.getInstance();
+	private static Logger LOGGER;
 
 	private String backend;
 
@@ -27,6 +27,8 @@ public class OntologyCalculationFn {
 		backend = ctx.getConfigurationByKey("BACKEND_SERVER")
 				.orElseThrow(() -> new RuntimeException("No backend configured"));
 		apiKey = ctx.getConfigurationByKey("API_KEY").orElseThrow(() -> new RuntimeException("No apikey configured"));
+		Logger.initialize(ctx);
+		LOGGER = Logger.getInstance();
 	}
 
 	public InputData handleRequest(InputData input) {
