@@ -7,6 +7,7 @@ import java.util.TimeZone;
 
 import com.fnproject.fn.api.FnConfiguration;
 import com.fnproject.fn.api.RuntimeContext;
+import com.minsait.onesait.configuration.Logger;
 import com.minsait.onesait.pojo.FnEntityOutput;
 import com.minsait.onesait.pojo.FnEntityOutputWrapper;
 import com.minsait.onesait.pojo.InputData;
@@ -14,6 +15,8 @@ import com.minsait.onesait.service.APIService;
 import com.minsait.onesait.service.CalculationService;
 
 public class OntologyCalculationFn {
+
+	private static final Logger LOGGER = Logger.getInstance();
 
 	private String backend;
 
@@ -23,17 +26,16 @@ public class OntologyCalculationFn {
 	public void config(RuntimeContext ctx) {
 		backend = ctx.getConfigurationByKey("BACKEND_SERVER")
 				.orElseThrow(() -> new RuntimeException("No backend configured"));
-
 		apiKey = ctx.getConfigurationByKey("API_KEY").orElseThrow(() -> new RuntimeException("No apikey configured"));
 	}
 
 	public InputData handleRequest(InputData input) {
+		LOGGER.info(
+				"New input data arrived at function: value: " + input.getValue() + ", zoneId: " + input.getZoneId());
 		final APIService service = new APIService(apiKey, backend);
 		final Double result = CalculationService.calculateOutput(input.getValue());
 		final TimeZone tz = TimeZone.getTimeZone("UTC");
-		final DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'"); // Quoted "Z" to indicate UTC, no
-																				// timezone
-																				// offset
+		final DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
 		df.setTimeZone(tz);
 		final String nowAsISO = df.format(new Date());
 		final FnEntityOutput output = new FnEntityOutput(nowAsISO, result, input.getZoneId());
