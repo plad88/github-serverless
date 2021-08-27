@@ -11,7 +11,7 @@
             <Field name="server" pattern="%host" />
             <Field name="server.fqdn" pattern="%host{fqdn}" />
             <!-- This is a static field -->
-            <Field name="app_name=String" literal="entityCalculationFn" />
+            <Field name="app_name" literal="entityCalculationFn" />
         </Gelf>
         <Console name="LogToConsole" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
