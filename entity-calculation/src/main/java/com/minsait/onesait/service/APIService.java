@@ -1,5 +1,8 @@
 package com.minsait.onesait.service;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.minsait.onesait.pojo.FnEntityOutputWrapper;
 
@@ -18,6 +21,7 @@ public class APIService {
 	private static final String API_PATH = "api-manager/server/api/v1/fnoutput";
 	public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 	private static final ObjectMapper mapper = new ObjectMapper();
+	private static final Logger logger = LogManager.getLogger(APIService.class);
 
 	public APIService(String apiKey, String backend) {
 		this.apiKey = apiKey;
@@ -33,6 +37,7 @@ public class APIService {
 					.post(body).build();
 			final Call call = client.newCall(request);
 			final Response response = call.execute();
+			logger.info("Called API {} with status {}", backend + API_PATH, response.code());
 		} catch (final Exception e) {
 			e.printStackTrace();
 		}
