@@ -69,9 +69,20 @@
 			<version>2.12.1</version>
 		</dependency>
 		<dependency>
-			<groupId>org.graylog2</groupId>
-			<artifactId>gelfclient</artifactId>
-			<version>1.5.1</version>
+			<groupId>biz.paluch.logging</groupId>
+			<artifactId>logstash-gelf</artifactId>
+			<version>1.14.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>2.11.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.11.2</version>
 		</dependency>
 	</dependencies>
 

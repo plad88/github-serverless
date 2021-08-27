@@ -5,9 +5,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.fnproject.fn.api.FnConfiguration;
 import com.fnproject.fn.api.RuntimeContext;
-import com.minsait.onesait.configuration.Logger;
 import com.minsait.onesait.pojo.FnEntityOutput;
 import com.minsait.onesait.pojo.FnEntityOutputWrapper;
 import com.minsait.onesait.pojo.InputData;
@@ -16,24 +18,22 @@ import com.minsait.onesait.service.CalculationService;
 
 public class OntologyCalculationFn {
 
-	private static Logger LOGGER;
-
 	private String backend;
 
 	private String apiKey;
+
+	private static final Logger logger = LogManager.getLogger(OntologyCalculationFn.class);
 
 	@FnConfiguration
 	public void config(RuntimeContext ctx) {
 		backend = ctx.getConfigurationByKey("BACKEND_SERVER")
 				.orElseThrow(() -> new RuntimeException("No backend configured"));
 		apiKey = ctx.getConfigurationByKey("API_KEY").orElseThrow(() -> new RuntimeException("No apikey configured"));
-		Logger.initialize(ctx);
-		LOGGER = Logger.getInstance();
+
 	}
 
 	public InputData handleRequest(InputData input) {
-		LOGGER.info(
-				"New input data arrived at function: value: " + input.getValue() + ", zoneId: " + input.getZoneId());
+		logger.info("New input data. Value: {} , zoneId: {}", input.getValue(), input.getZoneId());
 		final APIService service = new APIService(apiKey, backend);
 		final Double result = CalculationService.calculateOutput(input.getValue());
 		final TimeZone tz = TimeZone.getTimeZone("UTC");
