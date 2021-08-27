@@ -13,10 +13,14 @@
             <!-- This is a static field -->
             <Field name="app_name=String" literal="entityCalculationFn" />
         </Gelf>
+        <Console name="LogToConsole" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
     </Appenders>
     <Loggers>
         <Root level="INFO">
             <AppenderRef ref="gelf" />
+            <AppenderRef ref="LogToConsole"/>
         </Root>
     </Loggers>
 </Configuration> 
