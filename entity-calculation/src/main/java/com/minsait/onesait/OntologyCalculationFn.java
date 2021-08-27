@@ -34,7 +34,7 @@ public class OntologyCalculationFn {
 
 	public InputData handleRequest(InputData input) throws InterruptedException {
 		logger.info("New input data. Value: {} , zoneId: {}", input.getValue(), input.getZoneId());
-		Thread.sleep(5000);
+		Thread.sleep(60000);
 		final APIService service = new APIService(apiKey, backend);
 		final Double result = CalculationService.calculateOutput(input.getValue());
 		final TimeZone tz = TimeZone.getTimeZone("UTC");
