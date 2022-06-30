@@ -6,7 +6,7 @@ build_image: fnproject/fn-java-fdk-build:jdk11-1.0.124
 run_image: fnproject/fn-java-fdk:jre11-1.0.124
 cmd: com.minsait.onesait.OntologyCalculationFn::handleRequest
 config:
-  API_KEY: d40f112591e946bfa03e067b78941155
+  API_KEY: d4d173323edb49cb8df923182863fda5
   GRAYLOG_HOST: log-centralizer
   GRAYLOG_PORT: "12201"
 triggers:

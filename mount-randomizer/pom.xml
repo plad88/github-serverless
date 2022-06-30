@@ -8,7 +8,7 @@
         <fdk.version>1.0.124</fdk.version>
     </properties>
     <groupId>com.example.fn</groupId>
-    <artifactId>hello</artifactId>
+    <artifactId>mount-randomizer</artifactId>
     <version>1.0.0</version>
 
     <repositories>
