@@ -31,6 +31,13 @@ public class HelloFunction {
 		if (lucky) {
 			output = output + " ...and you are lucky!!!";
 		}
+
+		try {
+			Thread.sleep(40000);
+		} catch (final InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return output;
 	}
 
