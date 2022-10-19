@@ -9,6 +9,7 @@ config:
   API_KEY: d4d173323edb49cb8df923182863fda5
   GRAYLOG_HOST: log-centralizer
   GRAYLOG_PORT: "12201"
+  BACKEND_SERVER: https://development.onesaitplatform.com/
 triggers:
 - name: endpoint
   type: http
