@@ -12,7 +12,7 @@ def handler(ctx, data: io.BytesIO = None):
         if isinstance(json_obj, list):
             answer = []
             for input in json_obj:
-                answer.append(random())
+                answer.append(round(random.uniform(0, 1),2))
         else:
             answer = "input object is not an array of objects:" + str(json_obj)
             logging.getLogger().error('error isinstance(json_obj, list):' + isinstance(json_obj, list))
