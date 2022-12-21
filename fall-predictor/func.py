@@ -9,7 +9,7 @@ def handler(ctx, data: io.BytesIO = None):
     try:
         answer = ""
         json_obj = json.loads(data.getvalue())
-        if isinstance(json_obj, dict) and 'listName' in json_obj:
+        if isinstance(json_obj, list):
             answer = []
             for input in json_obj:
                 answer.append(random())
