@@ -7,7 +7,7 @@ from fdk import response
 
 def handler(ctx, data: io.BytesIO = None):
     try:
-        answer = ""
+        answer = []
         json_obj = json.loads(data.getvalue())
         if isinstance(json_obj, list):
             answer = []
@@ -15,9 +15,11 @@ def handler(ctx, data: io.BytesIO = None):
                 answer.append(random())
         else:
             answer = "input object is not an array of objects:" + str(json_obj)
+            logging.getLogger().error('error isinstance(json_obj, list):' + isinstance(json_obj, list))
             raise Exception(answer)
     except (Exception, ValueError) as ex:
-        logging.getLogger().info('error parsing json payload: ' + str(ex))
+
+        logging.getLogger().error('error parsing json payload: ' + str(ex))
 
     logging.getLogger().info("Inside Python ML function")
     return response.Response(
