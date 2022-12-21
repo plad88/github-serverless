@@ -4,3 +4,7 @@ version: 0.0.5
 runtime: python
 entrypoint: /python/bin/fdk /function/func.py handler
 memory: 256
+triggers:
+- name: endpoint
+  type: http
+  source: /avalanche-predictor
