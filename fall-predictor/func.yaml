@@ -8,6 +8,3 @@ triggers:
 - name: endpoint
   type: http
   source: /avalanche-predictor
-
-
-  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
