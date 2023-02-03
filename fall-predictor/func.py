@@ -30,7 +30,10 @@ def handler(ctx, data: io.BytesIO = None):
             answer = []
             for input in json_obj:
                 #answer.append(round(random.uniform(0, 1),2))
-                answer.append(pyfunc_predictor.predict([[ 7, 0.27, 0.36, 20.7, 0.045, 45, 170, 1.001, 3, 0.45, 8.8]]))
+                predict = pyfunc_predictor.predict([[ 7, 0.27, 0.36, 20.7, 0.045, 45, 170, 1.001, 3, 0.45, 8.8]])
+                logging.getLogger().info("prediction")
+                logging.getLogger().info(predict)
+                answer.append(predict)
         else:
             answer = "input object is not an array of objects:" + str(json_obj)
             logging.getLogger().error('error isinstance(json_obj, list):' + isinstance(json_obj, list))
