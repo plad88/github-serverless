@@ -11,16 +11,11 @@ from fdk import response
 
 tracking_uri = "https://onesait-telco-poc.onesaitplatform.com/controlpanel/modelsmanager"
 model_uri = "onesait-platform://49832a9c2d7645caa0ef497706edef34@onesait-telco-poc.onesaitplatform.com/0/6657be3510d24fa9b8308e30d6b5fa7c/artifacts/model"
-pyfunc_predictor = None
+global pyfunc_predictor
 
-def initML():
-    mlflow.set_tracking_uri(tracking_uri)
-
-    pyfunc_predictor = mlflow.pyfunc.load_model(model_uri=model_uri)
-
-    logging.getLogger().info("Predictor ready")
-
-initML()
+mlflow.set_tracking_uri(tracking_uri)
+pyfunc_predictor = mlflow.pyfunc.load_model(model_uri=model_uri)
+logging.getLogger().info("Predictor ready")
 
 def handler(ctx, data: io.BytesIO = None):
     try:
