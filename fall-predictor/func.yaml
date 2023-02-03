@@ -1,10 +1,10 @@
 schema_version: 20180708
 name: fall-predictor
-version: 0.0.10
+version: 0.0.7
 runtime: python
 entrypoint: /python/bin/fdk /function/func.py handler
 memory: 256
 triggers:
 - name: endpoint
   type: http
-  source: /avalanche-predictor2
+  source: /avalanche-predictor
