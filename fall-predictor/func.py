@@ -2,7 +2,6 @@ import io
 import json
 import logging
 import random
-import mlflow
 
 from fdk import response
 
