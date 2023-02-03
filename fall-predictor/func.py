@@ -1,8 +1,11 @@
 import io
 import json
 import logging
+import os
+os.environ["HOME"] = "/tmp"
 import random
 import mlflow
+
 
 from fdk import response
 
