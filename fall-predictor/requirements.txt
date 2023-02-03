@@ -1,2 +1,2 @@
 fdk
-mlflow=1.19.0
+mlflow==1.19.0
