@@ -17,7 +17,7 @@ def init():
 
     logging.getLogger().info("Predictor ready")
 
-init()
+#init()
 
 def handler(ctx, data: io.BytesIO = None):
     try:
