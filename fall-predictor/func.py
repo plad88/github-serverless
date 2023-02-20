@@ -27,16 +27,21 @@ def handler(ctx, data: io.BytesIO = None):
         if isinstance(json_obj, list):
             logging.getLogger().info("isinstance")
             answer = []
+            values = []
+            inputvector = []
             for input in json_obj:
                 logging.getLogger().info("for")
                 logging.getLogger().info("input: " + str(input))
                 #answer.append(round(random.uniform(0, 1),2))
-                predict = pyfunc_predictor.predict([[ 7, 0.27, 0.36, 20.7, 0.045, 45, 170, 1.001, 3, 0.45, 8.8]])
-                predict = pyfunc_predictor.predict([[ 6.9, 0.36, 0.34, 4.2, 0.018, 57, 119 ,0.9898, 3.28 , 0.36, 12.7]])
+                if (input['severity'] < 5 and input['trace'].startswith('Error event Operation timed out')):
+                    inputvector = [ 6.9, 0.36, 0.34, input['severity'] + 0.2, 0.018, 100-43, 119 ,0.9898, 3.28 , 3*0.12, 12.7]
+                else:
+                    inputvector = [ 7, 0.27, 0.36, 20.7, 0.045, 5*input['severity'], ord(input['trace'][0]), 1.001, 3, 0.45, 2*4.4]
+                values.append(inputvector)
                 
-                logging.getLogger().info("prediction")
-                logging.getLogger().info(predict)
-                answer.append(predict[0])
+            predict = pyfunc_predictor.predict(values)
+            answer = predict
+            logging.getLogger().info("prediction")
         else:
             answer = "input object is not an array of objects:" + str(json_obj)
             logging.getLogger().error('error isinstance(json_obj, list):' + isinstance(json_obj, list))
