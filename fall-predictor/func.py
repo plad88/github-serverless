@@ -17,6 +17,12 @@ mlflow.set_tracking_uri(tracking_uri)
 pyfunc_predictor = mlflow.pyfunc.load_model(model_uri=model_uri)
 logging.getLogger().info("Predictor ready")
 
+class NumpyEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, np.ndarray):
+            return obj.tolist()
+        return json.JSONEncoder.default(self, obj)
+
 def handler(ctx, data: io.BytesIO = None):
     try:
         logging.getLogger().info("Try")
@@ -32,7 +38,7 @@ def handler(ctx, data: io.BytesIO = None):
             for input in json_obj:
                 logging.getLogger().info("for")
                 logging.getLogger().info("input: " + str(input))
-                #answer.append(round(random.uniform(0, 1),2))
+                
                 if (input['severity'] < 5 and input['trace'].startswith('Error event Operation timed out')):
                     inputvector = [ 6.9, 0.36, 0.34, input['severity'] + 0.2, 0.018, 100-43, 119 ,0.9898, 3.28 , 3*0.12, 12.7]
                 else:
@@ -40,7 +46,7 @@ def handler(ctx, data: io.BytesIO = None):
                 values.append(inputvector)
                 
             predict = pyfunc_predictor.predict(values)
-            answer = predict
+            answer = predict.tolist()
             logging.getLogger().info("prediction")
         else:
             answer = "input object is not an array of objects:" + str(json_obj)
