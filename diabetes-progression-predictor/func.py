@@ -10,7 +10,7 @@ import mlflow
 from fdk import response
 
 tracking_uri = "https://survivor.onesaitplatform.com/controlpanel/modelsmanager"
-model_uri = "onesait-platform://588cca8132164ff1b62ba2f28273aeed@survivor.onesaitplatform.com/0/3079680c3ad84c02b0ac7631d9a59aae/artifacts/model"
+model_uri = "onesait-platform://588cca8132164ff1b62ba2f28273aeed@survivor.onesaitplatform.com/0/859953c3a0dd4596bd15d864e91081ab/artifacts/model"
 global pyfunc_predictor
 
 mlflow.set_tracking_uri(tracking_uri)
